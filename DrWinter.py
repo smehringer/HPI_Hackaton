@@ -8,6 +8,7 @@
 from flask import Flask, request, redirect #sudo apt-get install python-virtualenv
 import twilio.twiml
 import re
+import data_predict
 
 app = Flask(__name__)
 # Try adding your own number to this list!
@@ -20,7 +21,7 @@ def hello_monkey():
     print message
     if valid:
         query=prep_data(message, char)
-            
+        testData(query) 
     message = " Thanks for the message!"+
     resp = twilio.twiml.Response()
     resp.message("Hello, Mobile Monkey")
