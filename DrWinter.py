@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 #########################################
-#Created on Sat Jun 11 20:11:59 2016#    
+#Created on Sat Jun 11 20:11:59 2016    #    
 #@author: Lennard Epping                #
 #@contact: lennard.epping@fu-berlin.de  #
 #########################################
 
-from flask import Flask, request, redirect #sudo apt-get install python-virtualenv
+from flask import Flask, request, redirect
 import twilio.twiml
 import re
 import data_predict
@@ -21,8 +21,8 @@ def hello_monkey():
     print message
     if valid:
         query=prep_data(message, char)
-        testData(query) 
-    message = " Thanks for the message!"+
+        deseas_class=data_predict.testData(query) 
+    message = " Thanks for the message!"
     resp = twilio.twiml.Response()
     resp.message("Hello, Mobile Monkey")
     return str(resp)
