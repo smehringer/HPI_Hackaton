@@ -9,11 +9,7 @@ from flask import Flask, request, redirect
 import twilio.twiml
 import re
 import data_predict
-Deseases=["Herpes genitalis","Herpes labialis","Syphilis","Chlamydia","HPV,Gonorrhea","Crabs,Scabies",\
-"Hepatitis B","Herpes genitalis","Herpes labialis","Syphilis","Chlamydia","HPV","Gonorrhea","Crabs Scabies",\
-"Hepatitis B","Hepatitis C","Mycoplasma hominis infection","Trichomoniasis","Ureaplasma infection",\
-"Candidiasis","Bacterial vaginosis","Pregnant","Hepatitis C","Mycoplasma hominis infection","Trichomoniasis",\
-"Ureaplasma infection", "Candidiasis","Bacterial vaginosis"]
+Disease=["No Inflammation of urinary","Inflammation of urinary"]
 
 app = Flask(__name__)
 # Try adding your own number to this list!
@@ -23,41 +19,50 @@ def hello_monkey():
     """Respond to incoming calls with a simple text message."""
     from_number = request.values.get('From', None)
     message=request.values.get('Body',None)
-    x= validate(message)
+      
+    x=validate(message)
+    print x
     valid=x[0]
     char=x[1]
     if valid:
         query=prep_data(message, char)
-        desease_class=data_predict.testData(query)
-        message = " Thanks for the message! You probably have "+ Deseases[int(desease_class[0])]
+        disease_class=data_predict.testData(query)
+        message = " Thanks for the message! You probably have "+ Disease[int(disease_class[0])]
         
     else:
-        message = "Hi and welcome,\n please indicate from which  of the following symptoms you are suffering from by sending me a sms containing all the numbers associated with the symptoms you can observe seperated by only commas.\nSymptoms:\n   \nThank you for using my services!\nDr. Winter"
+        message = "Hi and welcome,\n please indicate from which  of the following symptoms you are suffering"+ \
+        "from by sending me a sms containing all the numbers associated with the symptoms you can observe seperated"+\
+        "by only commas.\nSymptoms:\n Temperature of patient(number) Occurrence of nausea(yes,no) Lumbar pain(yes, no)"+\
+        "Urine pushing (yes, no) Micturition pains(yes,no), Burning of urethra(yes,no), itch(yes,no), swelling of urethra outlet(yes, no)"+\
+        "\nThank you for using my services!\nDr. Winter"
     resp = twilio.twiml.Response()
     resp.message(message)    
     return str(resp)
 
-def validate(message_sent):
-	matchcom = re.search(r"[0-9,]+", message_sent)
-	validcom = ((matchcom.start()==0) and (matchcom.end()==len(message_sent)))
-	matchsem = re.search(r"[0-9;]+", message_sent)
-	validsem = ((matchsem.start()==0) and (matchsem.end()==len(message_sent)))
-	matchbla = re.search(r"[0-9' ']+", message_sent)
-	validbla = ((matchbla.start()==0) and (matchbla.end()==len(message_sent)))
+def validate(message_sent):	
+	matchcom = re.search(r"[0-9]{2}(,yes|,no){5}", message_sent)		
+	matchsem = re.search(r"[0-9]{2}(;yes|;no){5}", message_sent)
+	matchbla= re.search(r"[0-9]{2}( yes| no){5}", message_sent)
 	
-	if validcom:
-		return [validcom, ","]
-	elif validsem:
-		return [validsem, ";"]
-	elif validbla:
-		return [validbla, " "]
+	if matchcom:
+		return [True, ","]
+	elif matchsem:
+		return [True, ";"]
+	elif matchbla:
+		return [True, " "]
 	else:
 		return [False, "u"]
+  
 def prep_data(message,char):
-    symptoms=[0]*16
+    symptoms=[0]*6
     message=message.split(char)
-    for symp in message:
-        symptoms[int(symp)]=1
+    symptoms[0]=message[0]
+    for i in range(1,len(symptoms)):
+        if message[i]=="yes":
+            symptoms[i]=1
+        elif message[i]=="no":
+            symptoms[i]=0
+        
     return symptoms
     
     
