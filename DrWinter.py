@@ -9,6 +9,11 @@ from flask import Flask, request, redirect
 import twilio.twiml
 import re
 import data_predict
+Deseases=["Herpes genitalis","Herpes labialis","Syphilis","Chlamydia","HPV,Gonorrhea","Crabs,Scabies",\
+"Hepatitis B","Herpes genitalis","Herpes labialis","Syphilis","Chlamydia","HPV","Gonorrhea","Crabs Scabies",\
+"Hepatitis B","Hepatitis C","Mycoplasma hominis infection","Trichomoniasis","Ureaplasma infection",\
+"Candidiasis","Bacterial vaginosis","Pregnant","Hepatitis C","Mycoplasma hominis infection","Trichomoniasis",\
+"Ureaplasma infection", "Candidiasis","Bacterial vaginosis"]
 
 app = Flask(__name__)
 # Try adding your own number to this list!
@@ -18,15 +23,18 @@ def hello_monkey():
     """Respond to incoming calls with a simple text message."""
     from_number = request.values.get('From', None)
     message=request.values.get('Body',None)
-    valid, char = validate(message)
+    x= validate(message)
+    valid=x[0]
+    char=x[1]
     if valid:
         query=prep_data(message, char)
-        deseas_class=data_predict.testData(query)
+        desease_class=data_predict.testData(query)
+        message = " Thanks for the message! You probably have "+ Deseases[int(desease_class[0])]
+        
     else:
         message = "Hi and welcome,\n please indicate from which  of the following symptoms you are suffering from by sending me a sms containing all the numbers associated with the symptoms you can observe seperated by only commas.\nSymptoms:\n   \nThank you for using my services!\nDr. Winter"
-    message = " Thanks for the message!"
     resp = twilio.twiml.Response()
-    resp.message("Hello, Mobile Monkey")
+    resp.message(message)    
     return str(resp)
 
 def validate(message_sent):
@@ -46,11 +54,11 @@ def validate(message_sent):
 	else:
 		return [False, "u"]
 def prep_data(message,char):
-    symptoms=[0]*10
+    symptoms=[0]*16
     message=message.split(char)
     for symp in message:
-        symptoms[symp]=1
-    return symtomps
+        symptoms[int(symp)]=1
+    return symptoms
     
     
 if __name__ == "__main__":
