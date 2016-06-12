@@ -11,7 +11,8 @@ import re
 import data_predict
 Disease=["Don't worry! So far there is no indication that you have a urinary inflammation =) Keep on being awesome!" ,
 "Oh shit =( It seems you have several indication for a urinary inflammation. Please visit a doctor, drink a lot of water and get some rest."]
-
+PS = ["PS: Help us improve our service! If you went to a doctor and got your diagnosis please tell us the result. If you do not agree to be reminded to do this in 2 weeks, reply with no Thank you very much and get well soon =)",
+      "PS: Help us improve our service! If your symptoms disappear or you decide to consult a doctor please tell us the result. If you do not agree to be reminded to do this in 2 weeks, reply with no Thank you very much and get well soon =)"]
 app = Flask(__name__)
 # Try adding your own number to this list!
 
@@ -29,13 +30,17 @@ def hello_monkey():
         query=prep_data(message, char)
         disease_class=data_predict.testData(query)
         message = Disease[int(disease_class[0])]
+        message2 = PS[0]
         
     else:
         message = "Hi and welcome,\n please tell me from which symptoms you are suffering:\n\n Temperature of Patient (number)\n\n Occurrence of Nausea(yes,no)\n\n Lumbar pain(yes, no)\n\n"+\
     " Urine Pushing (yes, no)\n\n Micturition Pains (yes,no)\n\n Burning of Rrethra (yes,no)\n\n Itching (yes,no)\n\n Swelling of Urethra Outlet (yes, no)\n\n"+\
         "For example: 39,yes,no,yes,yes,no \nThank you for using my app!\nDr. Winter"
+        message2 = PS[1]
     resp = twilio.twiml.Response()
     resp.message(message)    
+    return str(resp)
+    resp.message(message2)    
     return str(resp)
 
 def validate(message_sent):	
