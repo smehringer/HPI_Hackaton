@@ -9,7 +9,7 @@ from flask import Flask, request, redirect
 import twilio.twiml
 import re
 import data_predict
-Disease=["Don't worry! So far there is no indication that you have a urinary inflammation. =) Keep on being awsome!" ,
+Disease=["Don't worry! So far there is no indication that you have a urinary inflammation =) Keep on being awesome!" ,
 "Oh shit =( It seems you have several indication for a urinary inflammation. Please visit a doctor, drink a lot of water and get some rest."]
 
 app = Flask(__name__)
