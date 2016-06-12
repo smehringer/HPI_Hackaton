@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-#########################################
-#Created on Sat Jun 11 20:11:59 2016    #    
-#@author: Lennard Epping                #
-#@contact: lennard.epping@fu-berlin.de  #
-#########################################
-
 from flask import Flask, request, redirect
 import twilio.twiml
 import re
@@ -14,7 +7,7 @@ Disease=["Don't worry! So far there is no indication that you have a urinary inf
 PS = ["PS: Help us improve our service! If you went to a doctor and got your diagnosis please tell us the result. If you do not agree to be reminded to do this in 2 weeks, reply with no Thank you very much and get well soon =)",
       "PS: Help us improve our service! If your symptoms disappear or you decide to consult a doctor please tell us the result. If you do not agree to be reminded to do this in 2 weeks, reply with no Thank you very much and get well soon =)"]
 app = Flask(__name__)
-# Try adding your own number to this list!
+
 
 @app.route("/", methods=['GET', 'POST'])
 def hello_monkey():
