@@ -15,13 +15,13 @@ Our application will now reply with the instructions to use our service.
 
 ![Caption for the picture.](Screenshot_2016-06-12-10-12-49.png)
 
-Now you need to specify your symptoms. Please do so by giving a decimal number with at most one decimal (e.g. 37.5) of your current temperature and yes no answers for the other symptoms. All answers need to be seperated by comma or space.
+Now you need to specify your symptoms. Please do so by giving a decimal number with at most one decimal (e.g. 37.5) of your current temperature and yes/no answers for the other symptoms. All answers need to be seperated by comma or space.
 
-**Now are app will internally predict your risk of innflammation based on a trained random forest**
+**Now our app will internally predict your risk of urinary inflammation based on a trained random forest.**
 
 It will answer you by telling you whether everything is alright or you need to visit a doctor.
 
 ![Caption for the picture.](Screenshot_2016-06-12-10-12-56.png)
 
-Since this is only a prototype we can only predict urinary inflammation. It would be nice to expand the application to use natural language processing to look for symptoms in a text. Since the prediction of a disease only based on symptoms like a headache or itching is very hard and non-specific, we propose to merly predict whether your symptoms are potentionally serious or not and provide some information or advice.
+Since this is only a prototype we can only predict urinary inflammation. It would be nice to expand the application by using natural language processing to look for symptoms in a text. Since the prediction of a disease only based on symptoms like a headache or itching is very hard and non-specific, we propose to merly predict whether your symptoms are potentionally serious or not and provide some information or advice.
 
