@@ -9,7 +9,8 @@ from flask import Flask, request, redirect
 import twilio.twiml
 import re
 import data_predict
-Disease=["No Inflammation of urinary","Inflammation of urinary"]
+Disease=["Don't worry! So far there is no indication that you have a urinary inflammation. =) Keep on being awsome!" ,
+"Oh shit =( It seems you have several indication for a urinary inflammation. Please visit a doctor, drink a lot of water and get some rest."]
 
 app = Flask(__name__)
 # Try adding your own number to this list!
@@ -27,22 +28,20 @@ def hello_monkey():
     if valid:
         query=prep_data(message, char)
         disease_class=data_predict.testData(query)
-        message = " Thanks for the message! You probably have "+ Disease[int(disease_class[0])]
+        message = Disease[int(disease_class[0])]
         
     else:
-        message = "Hi and welcome,\n please indicate from which  of the following symptoms you are suffering"+ \
-        "from by sending me a sms containing all the numbers associated with the symptoms you can observe seperated"+\
-        "by only commas.\nSymptoms:\n Temperature of patient(number) Occurrence of nausea(yes,no) Lumbar pain(yes, no)"+\
-        "Urine pushing (yes, no) Micturition pains(yes,no), Burning of urethra(yes,no), itch(yes,no), swelling of urethra outlet(yes, no)"+\
-        "\nThank you for using my services!\nDr. Winter"
+        message = "Hi and welcome,\n please tell me from which symptoms you are suffering:\n\n Temperature of Patient (number)\n\n Occurrence of Nausea(yes,no)\n\n Lumbar pain(yes, no)\n\n"+\
+    " Urine Pushing (yes, no)\n\n Micturition Pains (yes,no)\n\n Burning of Rrethra (yes,no)\n\n Itching (yes,no)\n\n Swelling of Urethra Outlet (yes, no)\n\n"+\
+        "For example: 39,yes,no,yes,yes,no \nThank you for using my app!\nDr. Winter"
     resp = twilio.twiml.Response()
     resp.message(message)    
     return str(resp)
 
 def validate(message_sent):	
-	matchcom = re.search(r"[0-9]{2}(,yes|,no){5}", message_sent)		
-	matchsem = re.search(r"[0-9]{2}(;yes|;no){5}", message_sent)
-	matchbla= re.search(r"[0-9]{2}( yes| no){5}", message_sent)
+	matchcom = re.search(r"[0-9]{2}(\.[0-9])?(,yes|,no){5}", message_sent)		
+	matchsem = re.search(r"[0-9]{2}(\.[0-9])?(;yes|;no){5}", message_sent)
+	matchbla= re.search(r"[0-9]{2}(\.[0-9])?( yes| no){5}", message_sent)
 	
 	if matchcom:
 		return [True, ","]
