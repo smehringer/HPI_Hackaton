@@ -32,7 +32,6 @@ def hello_monkey():
         message2 = PS[1]
     resp = twilio.twiml.Response()
     resp.message(message)    
-    return str(resp)
     resp.message(message2)    
     return str(resp)
 
