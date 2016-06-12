@@ -1,7 +1,7 @@
 Dr Winter SMS Service
 =====================
 
-This is a first version of an interactive sms service. Due to missing data sets the application currently is only able to inform you about the risk of having urinary inflammation. The data were taken from:
+This is a first version of an interactive sms service. Due to missing datasets the application is currently only able to inform you about the risk of having urinary inflammation. The dataset was taken from:
 
 > J.Czerniak, H.Zarzycki, Application of rough sets in the presumptive diagnosis of urinary system diseases, Artificial Intelligence and Security in Computing Systems, ACS'2002 9th International Conference Proceedings, Kluwer
 
@@ -23,5 +23,5 @@ It will answer you by telling you whether everything is alright or you need to v
 
 ![Caption for the picture.](Screenshot_2016-06-12-10-12-56.png)
 
-Since this is only a prototype we can only predict urinary inflammation. It would be nice to expand the application by using natural language processing to look for symptoms in a text. Since the prediction of a disease only based on symptoms like a headache or itching is very hard and non-specific, we propose to merly predict whether your symptoms are potentionally serious or not and provide some information or advice.
+Since this is only a prototype we can only predict urinary inflammation. It would be nice to expand the application by using natural language processing to look for symptoms in a text. Since the prediction of a disease only based on symptoms like a headache or itching is very hard and non-specific, we propose to merely predict whether your symptoms are potentionally serious or not and provide some information or advice.
 
