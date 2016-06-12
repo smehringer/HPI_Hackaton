@@ -9,7 +9,7 @@ This is a first version of an interactive sms service. Due to missing datasets t
 
 **Try out our app in the following way:**
 
-* Start by writing any mesasge like: "Hi"
+* Start by writing any mesasge like: "Hi" to +4915735982136
 
 Our application will now reply with the instructions to use our service.
 
